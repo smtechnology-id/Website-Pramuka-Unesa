@@ -1,0 +1,706 @@
+/*================================================
+Template name: Rdsto App Landing HTML Template
+Version: 1.0.0
+Author: Design Expert    
+Author url: https://themeforest.net/user/designexpart260
+Developer: Najmul Huda Eimon 
+
+[ Table of Contents ]
+
+01: extra extra large (xxl)
+02: extra large (xl)
+03: large (lg)
+04: medium (md)
+05: small (sm)
+06: extra small (xs)
+
+==================================================*/
+
+/*=================================================
+01: extra extra large (xxl)
+====================================================*/
+@media(min-width: 1400px) and (max-width: 1550px){}
+
+/*=================================================
+02: extra large (xl)
+====================================================*/
+@media(min-width: 1200px) and (max-width: 1399px){
+    /*---------------- home 1 --------------*/
+    /* banner */
+    .home1.banner {
+        padding-bottom: 240px;
+    }
+    .home1.banner .content {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .home1.banner .text-area h1 {
+        font-size: 64px;
+    }
+    .home1.banner .image-area{
+        bottom: -75px;
+    }
+    .home1.banner .image-area img{
+        width: 80%;
+    }
+    /* about */
+    .home1.about .content {
+        padding-right: 80px;
+    }
+    /* client */
+    .home1.client .item p {
+        width: 90%;
+    }
+    /*---------------- home 2 --------------*/
+    /* banner */
+    .home2.banner .text-area h1 {
+        font-size: 50px;
+    }
+}
+/*=================================================
+03: large (lg)
+====================================================*/
+@media(min-width: 992px) and (max-width: 1199px){
+    /*---------------- home 1 --------------*/
+    /* menubar */
+    .menubar .right-part ul li {
+        padding-left: 30px;
+    }
+    /* banner */
+    .home1.banner {
+        padding-top: 170px;
+        padding-bottom: 150px;
+    }
+    .home1.banner .content {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .home1.banner .text-area h1 {
+        font-size: 50px;
+        line-height: 72px;
+    }
+    .home1.banner .text-area p {
+        width: 100%;
+    }
+    .home1.banner .image-area{
+        bottom: 0;
+    }
+    .home1.banner .image-area img{
+        width: 66%;
+    }
+    
+    /* feature */
+    .home1.feature .item {
+        padding: 45px 25px;
+    }
+    /* about */
+    .home1.about .content {
+        padding-right: 0;
+    }
+    .home1.about .content h3 {
+        font-size: 38px;
+    }
+    /* mobile */
+    .home1.mobile .content {
+        padding: 55px 24px 60px 25px;
+    }
+    .home1.mobile .content h3 {
+        font-size: 38px;
+    }
+    /* client */
+    .home1.client .item p {
+        width: 100%;
+    }
+    /*---------------- home 2 --------------*/
+    /* banner */
+    .home2.banner .text-area h1 {
+        font-size: 42px;
+        line-height: 62px;
+    }
+    /* newsletter */
+    .home2.newsletter .content h3 {
+        font-size: 38px;
+    }
+    
+}
+/*=================================================
+04: medium (md)
+====================================================*/
+@media(min-width: 768px) and (max-width: 991px){
+    /*---------------- home 1 --------------*/
+    /* menubar */
+    .menubar ,
+    .menubar.sticky {
+        padding: 10px 0;
+    }
+    .menubar .right-part ul li {
+        padding-left: 30px;
+    }
+    /* banner */
+    .home1.banner {
+        padding-top: 120px;
+        padding-bottom: 150px;
+    }
+    .home1.banner .content {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .home1.banner .text-area{
+        padding-top: 50px;
+    }
+    .home1.banner .text-area h1 {
+        font-size: 60px;
+        line-height: 72px;
+    }
+    .home1.banner .text-area p {
+        width: 100%;
+    }
+    .home1.banner .image-area{
+        position: relative;
+        bottom: 0;
+    }
+    
+    /* feature */
+    .home1.feature{
+        padding-bottom: 90px;
+    }
+    .home1.feature .item {
+        margin-bottom: 30px;
+    }
+    /* counter */
+    .home1.counter{
+        padding-bottom: 70px;
+    }
+    .home1.counter .item{
+        margin-bottom: 30px;
+    }
+    /* about */
+    .home1.about .image{
+        margin-bottom: 30px;
+    }
+    .home1.about .content {
+        padding-right: 0;
+    }
+    /* team */
+    .home1.team {
+        padding-bottom: 90px;
+    }
+    .home1.team .item{
+        margin-bottom: 30px;
+    }
+    /* mobile */
+    .home1.mobile .image {
+        display: none;
+    }
+    .home1.mobile .content {
+        padding: 55px 24px 60px 25px;
+    }
+    .home1.mobile .content h3 ,
+    .home1.mobile .content p {
+        width: 100%;
+    }
+    /* client */
+    .home1.client .client-slider {
+        padding-top: 100px;
+    }
+    .home1.client .shape {
+        left: 100px;
+    }
+    .home1.client .item p {
+        width: 100%;
+    }
+    /* blog */
+    .home1.blog{
+        padding-bottom: 90px;
+    }
+    .home1.blog .single-blog{
+        margin-bottom: 30px;
+    }
+    /* footer */
+    .footer .footer-top{
+        padding-bottom: 30px;
+    }
+    .footer .footer-top .content{
+        margin-bottom: 30px;
+    }
+    /*---------------- home 2 --------------*/
+    /* menubar */
+    .home2.menubar .header-menu {
+        margin-right: auto;
+    }
+    /* banner */
+    .home2.banner .text-area h1 {
+        font-size: 45px;
+        line-height: 62px;
+    }
+    .home2.banner .image-area {
+        text-align: center !important;
+        right: 0;
+    }
+    /* newsletter */
+    .home2.newsletter .content {
+        padding-bottom: 30px;
+    }
+    /* pricing */
+    .home2.pricing{
+        padding-bottom: 90px;
+    }
+    .home2.pricing .item{
+        margin-bottom: 30px;
+    }
+    /*---------------- service details page --------------*/
+    .service-page.detail .text {
+        padding-right: 0;
+    }
+    /*---------------- team details page --------------*/
+    .team-page.team-detail .team-detail-area {
+        padding-left: 0;
+    }
+    /*---------------- project details page --------------*/
+    
+    .project-page.project-detail .list-part .row {
+        align-items: flex-start !important;
+    }
+    /*---------------- contact page --------------*/
+    .contact-page.contact .address{
+        padding-top: 60px;
+    }
+}
+/*=================================================
+05: small (sm)
+====================================================*/
+@media(min-width: 576px) and (max-width: 767px){
+    /*---------------- home 1 --------------*/
+    /* section-title */
+    .section-title h2 {
+        font-size: 40px;
+    }
+    /* menubar */
+    .menubar ,
+    .menubar.sticky {
+        padding: 10px 0;
+    }
+    .menubar .right-part ul li {
+        padding-left: 30px;
+    }
+    /* banner */
+    .home1.banner {
+        padding-top: 120px;
+        padding-bottom: 150px;
+    }
+    .home1.banner .content {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .home1.banner .text-area{
+        padding-top: 50px;
+    }
+    .home1.banner .text-area h1 {
+        font-size: 46px;
+        line-height: 62px;
+    }
+    .home1.banner .text-area p {
+        width: 100%;
+    }
+    .home1.banner .image-area{
+        position: relative;
+        bottom: 0;
+    }
+    
+    /* feature */
+    .home1.feature{
+        padding-bottom: 90px;
+    }
+    .home1.feature .item {
+        margin-bottom: 30px;
+    }
+    /* counter */
+    .home1.counter{
+        padding-bottom: 70px;
+    }
+    .home1.counter .item{
+        margin-bottom: 30px;
+    }
+    /* about */
+    .home1.about .image{
+        margin-bottom: 30px;
+    }
+    .home1.about .content {
+        padding-right: 0;
+    }
+    .home1.about .content h3{
+        font-size: 36px;
+    }
+    /* team */
+    .home1.team {
+        padding-bottom: 90px;
+    }
+    .home1.team .item{
+        margin-bottom: 30px;
+    }
+    /* mobile */
+    .home1.mobile .image {
+        display: none;
+    }
+    .home1.mobile .content {
+        padding: 55px 24px 60px 25px;
+    }
+    .home1.mobile .content h3 {
+        width: 100%;
+        font-size: 36px;
+    }
+    .home1.mobile .content p{
+        width: 100%;
+    }
+    /* client */
+    .home1.client .client-slider {
+        padding-top: 100px;
+    }
+    .home1.client .shape {
+        left: 100px;
+    }
+    .home1.client .item p {
+        width: 100%;
+    }
+    /* brand */
+    .home1.brand{
+        padding-top: 80px;
+    }
+    .home1.brand .col{
+        width: 50%;
+        flex-basis: auto;
+    }
+    .home1.brand .brand-logo{
+        padding-top: 20px;
+    }
+    /* blog */
+    .home1.blog{
+        padding-bottom: 90px;
+    }
+    .home1.blog .single-blog{
+        margin-bottom: 30px;
+    }
+    /* footer */
+    .footer .footer-top{
+        padding-bottom: 30px;
+    }
+    .footer .footer-top .content{
+        margin-bottom: 30px;
+    }
+    .footer .footer-top .desc {
+        padding-right: 0;
+    }
+    .footer .footer-bottom p{
+        text-align: center;
+        padding-bottom: 10px;
+    }
+    
+    .footer .footer-bottom ul{
+        justify-content: center !important;
+    }
+    /*---------------- home 2 --------------*/
+    /* menubar */
+    .home2.menubar .header-menu {
+        margin-right: auto;
+    }
+    /* banner */
+    .home2.banner .text-area h1 {
+        font-size: 40px;
+        line-height: 62px;
+    }
+    .home2.banner .image-area {
+        text-align: center !important;
+        right: 0;
+    }
+    /* newsletter */
+    .home2.newsletter .content {
+        padding-bottom: 30px;
+    }
+    /* pricing */
+    .home2.pricing{
+        padding-bottom: 90px;
+    }
+    .home2.pricing .item{
+        margin-bottom: 30px;
+    }
+
+    /*---------------- blog-detail page --------------*/
+    .blog-page.blog-detail .comment .all-comment li img {
+        height: 100px;
+        width: 100px;
+    }
+    .blog-page.blog-detail .comment .all-comment li .comment-body {
+        padding-left: 120px;
+    }
+
+    /*---------------- service details page --------------*/
+    .service-page.detail .text {
+        padding-right: 0;
+    }
+    /*---------------- project details page --------------*/
+    .project-page.project-detail .info-area {
+        padding-left: 0;
+        padding-top: 30px;
+    }
+    
+    
+    /*---------------- team details page --------------*/
+    .team-page.team-detail .personal-info {
+        margin-bottom: 30px;
+    }
+    .team-page.team-detail .team-detail-area {
+        padding-left: 0;
+    }
+    /*---------------- contact page --------------*/
+    .contact-page.contact .address{
+        padding-top: 60px;
+    }
+}
+/*=================================================
+06: extra small (xs)
+====================================================*/
+@media(min-width: 320px) and (max-width: 575px){
+    /*---------------- home 1 --------------*/
+    .p-120{
+        padding: 100px 0;
+    }
+    .pt-120{
+        padding-top: 100px;
+    }
+    .pb-90{
+        padding-bottom: 70px;
+    }
+    /* section-title */
+    .section-title h2 {
+        font-size: 34px;
+        line-height: 52px;
+    }
+    /* menubar */
+    .menubar ,
+    .menubar.sticky {
+        padding: 10px 0;
+    }
+    .menubar .right-part {
+        display: none;
+    }
+    /* banner */
+    .home1.banner {
+        padding-top: 120px;
+        padding-bottom: 120px;
+    }
+    .home1.banner .content {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .home1.banner .text-area{
+        padding-top: 50px;
+    }
+    .home1.banner .text-area h1 {
+        font-size: 30px;
+        line-height: 44px;
+    }
+    .home1.banner .text-area p {
+        width: 100%;
+    }
+    .home1.banner .image-area{
+        position: relative;
+        bottom: 0;
+    }
+    
+    /* feature */
+    .home1.feature{
+        padding-bottom: 70px;
+    }
+    .home1.feature .item {
+        margin-bottom: 30px;
+        padding: 45px 25px;
+    }
+    /* counter */
+    .home1.counter{
+        padding-bottom: 70px;
+    }
+    .home1.counter .item{
+        margin-bottom: 30px;
+    }
+    .home1.counter .item h2{
+        font-size: 50px;
+    }
+    /* about */
+    .home1.about .image{
+        margin-bottom: 30px;
+    }
+    .home1.about .content {
+        padding-right: 0;
+    }
+    .home1.about .content h3 {
+        font-size: 30px;
+    }
+    .home1.about .content p {
+        width: 100%;
+    }
+    /* project */
+    .home1.portfolio .project-menu {
+        display: block !important;
+    }
+    /* team */
+    .home1.team {
+        padding-bottom: 70px;
+    }
+    .home1.team .item{
+        margin-bottom: 30px;
+    }
+    /* mobile */
+    .home1.mobile .image {
+        display: none;
+    }
+    .home1.mobile .content {
+        padding: 55px 24px 60px 25px;
+    }
+    .home1.mobile .content h3 {
+        width: 100%;
+        font-size: 32px;
+    }
+    .home1.mobile .content p{
+        width: 100%;
+    }
+    /* client */
+    .home1.client .client-slider {
+        padding-top: 30px;
+    }
+    .home1.client .shape {
+        left: 50px;
+        height: 220px;
+        width: 220px;
+    }
+    .home1.client .item p {
+        width: 100%;
+    }
+    /* brand */
+    .home1.brand{
+        padding-top: 80px;
+    }
+    .home1.brand .col{
+        width: 50%;
+        flex-basis: auto;
+    }
+    .home1.brand .brand-logo{
+        padding-top: 20px;
+    }
+    /* blog */
+    .home1.blog{
+        padding-bottom: 70px;
+    }
+    .home1.blog .single-blog{
+        margin-bottom: 30px;
+    }
+    /* footer */
+    .footer .footer-top{
+        padding-bottom: 30px;
+    }
+    .footer .footer-top .content{
+        margin-bottom: 30px;
+    }
+    .footer .footer-bottom p{
+        text-align: center;
+        padding-bottom: 10px;
+    }
+    .footer .footer-top .desc {
+        padding-right: 0;
+    }
+    .footer .footer-bottom ul{
+        justify-content: center !important;
+    }
+
+    /*---------------- home 2 --------------*/
+    
+    /* banner */
+    .home2.banner .text-area h1 {
+        font-size: 32px;
+        line-height: 52px;
+    }
+    .home2.banner .image-area {
+        text-align: center !important;
+        right: 0;
+    }
+    /* newsletter */
+    .home2.newsletter .content {
+        padding-bottom: 30px;
+    }
+    .home2.newsletter .content h3{
+        font-size: 32px;
+    }
+    /* pricing */
+    .home2.pricing{
+        padding-bottom: 90px;
+    }
+    .home2.pricing .item{
+        margin-bottom: 30px;
+    }
+    /*---------------- inner page --------------*/
+    .inner-page.banner h2 {
+        font-size: 35px;
+        line-height: 46px;
+    }
+    /*---------------- blog-detail page --------------*/
+    .blog-page.blog-detail .content h4 {
+        font-size: 22px;
+    }
+    .blog-page.blog-detail .share-blog {
+        display: block !important;
+    }
+    .blog-page.blog-detail .comment .all-comment li {
+        margin: 20px 0;
+    }
+    .blog-page.blog-detail .comment .all-comment li ul {
+        margin-left: 30px;
+    }
+    .blog-page.blog-detail .comment .all-comment li .reply {
+        position: relative;
+    }
+    .blog-page.blog-detail .comment .all-comment li ul li .reply {
+        top: 0;
+    }
+    .blog-page.blog-detail .comment .all-comment li img {
+        height: 100px;
+        width: 100px;
+        position: relative;
+        margin-bottom: 20px;
+    }
+    .blog-page.blog-detail .comment .all-comment li .comment-body {
+        padding-left: 0;
+    }
+
+    /*---------------- service details page --------------*/
+    .service-page.detail{
+        padding-bottom: 70px;
+    }
+    .service-page.detail .text {
+        padding-right: 0;
+    }
+    /*---------------- project details page --------------*/
+    .project-page.project-detail .info-area {
+        padding-left: 0;
+        padding-top: 30px;
+    }
+    
+    
+    .project-page.project-detail .title h4 {
+        font-size: 24px;
+    }
+    /*---------------- team details page --------------*/
+    .team-page.team-detail .personal-info {
+        margin-bottom: 30px;
+    }
+    .team-page.team-detail .team-detail-area {
+        padding-left: 0;
+    }
+    /*---------------- contact page --------------*/
+    .contact-page.contact .address{
+        padding-top: 60px;
+    }
+    .contact-page.contact .content h2 ,
+    .contact-page.contact .content h3 {
+        width: 100%;
+        font-size: 36px;
+    }
+}
