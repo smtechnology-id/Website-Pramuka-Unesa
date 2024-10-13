@@ -4,10 +4,30 @@
 @section('content')
 <div class="container">
     <div class="card">
+        <div class="card-body">
+            <h5>Informasi Participant</h5>
+            <table class="table table-bordered">
+                <tr>
+                    <th>Name</th>
+                    <td>{{ $participant->user->name }}</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>{{ $participant->user->email }}</td>
+                </tr>
+                <tr>
+                    <th>Score</th>
+                    <td><span class="badge bg-success" style="font-size: 20px;">{{ $participant->score }} / {{ $questions->count() }}</span></td>
+                </tr>
+                
+            </table>
+        </div>
+    </div>
+    <div class="card">
         <div class="card-body text-center">
             <h3 class="mb-4">Quiz {{ $quiz->title }}</h3>
-            <small style="float: left; font-size: 20px;" class="text-muted">Waktu Pengerjaan Anda : <span
-                    class="text-danger">{{ $usageTime }} Menit</span></small>
+            {{-- <small style="float: left; font-size: 20px;" class="text-muted">Waktu Pengerjaan Anda : <span
+                    class="text-danger">{{ $usageTime }} Menit</span></small> --}}
         </div>
         <div class="row">
             <div class="col-md-12">
@@ -20,6 +40,7 @@
                     @foreach ($questions as $item)
                     <div class="card mb-3">
                         <div class="card-body">
+                            <hr>
                             <h5 class="card-title">{!! $item->question !!} 
                                 @if ($participant->end_time)
                                     @if ($participantAnswer->where('question_id', $item->id)->first())
@@ -99,6 +120,7 @@
                                 <label class="form-check-label" for="answer{{ $item->id }}_e">E. {{ $item->answer_e
                                     }}</label>
                             </div>
+                            <hr>
                             @endif
                         </div>
                     </div>

@@ -111,6 +111,10 @@ Route::group(['middleware' => ['auth.middleware:admin']], function () {
     Route::get('/admin/quiz/question/edit/{id}', [AdminController::class, 'quizQuestionEdit'])->name('admin.quiz-question.edit');
     Route::post('/admin/quiz/question/update', [AdminController::class, 'quizQuestionUpdate'])->name('admin.quiz-question.update');
     Route::get('/admin/quiz/question/destroy/{id}', [AdminController::class, 'quizQuestionDestroy'])->name('admin.quiz-question.destroy');
+
+    // Participant
+    Route::get('/admin/quiz/participant/{slug}', [AdminController::class, 'quizParticipant'])->name('admin.quiz.participant');
+    Route::get('/admin/quiz/participant/show/{slug}/{id}', [AdminController::class, 'quizParticipantShow'])->name('admin.quiz-participant-show');
 });
 
 Route::group(['middleware' => ['auth.middleware:user']], function () {

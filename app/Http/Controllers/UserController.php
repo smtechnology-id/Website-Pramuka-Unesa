@@ -245,9 +245,7 @@ class UserController extends Controller
         // Cek Apakah Sudah Pernah Mengerjakan Quiz
         $participant = QuizParticipant::where('user_id', auth()->user()->id)->where('quiz_id', $quiz->id)->first();
         if ($participant) {
-            if ($participant->end_time) {
-                return redirect()->route('user.quiz.welcome', $slug)->with('error', 'Anda Sudah Mengerjakan Quiz Ini');
-            }
+    
         } else {
             // Add New Participant
             $participant = new QuizParticipant();
@@ -295,8 +293,9 @@ class UserController extends Controller
                     // Hitung Jumlah Jawaban Benar
                     $correctAnswer = ParticipantAnswer::where('quiz_id', $request->quiz_id)->where('quiz_participant_id', $request->quiz_participant_id)->where('is_correct', true)->count();
                     $participant->score = $correctAnswer;
-                    
+                    $participant->end_time = now();
                     $participant->save();
+                    
                 }
             } else {
                 $check->answer = $request->{$question->id};

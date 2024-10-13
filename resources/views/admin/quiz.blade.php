@@ -19,6 +19,7 @@
                                         <th>Status</th>
                                         <th>Created At</th>
                                         <th>Total Question</th>
+                                        <th>Participant</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -36,6 +37,9 @@
                                             <td>{{ $quiz->created_at }}</td>
                                             <td>
                                                 {{ $questionCount->where('quiz_id', $quiz->id)->count() }} Question
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('admin.quiz.participant', $quiz->slug) }}" class="btn btn-sm btn-info"> Participant</a>
                                             </td>
                                             <td>
                                                 <a href="{{ route('admin.quiz-add-question', $quiz->slug) }}" class="btn btn-sm btn-primary"><i class="material-icons">

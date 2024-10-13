@@ -7,8 +7,10 @@ use App\Models\Lesson;
 use App\Models\MemberWork;
 use App\Models\MentorWork;
 use App\Models\News;
+use App\Models\ParticipantAnswer;
 use App\Models\Question;
 use App\Models\Quiz;
+use App\Models\QuizParticipant;
 use App\Models\Registration;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -487,5 +489,21 @@ class AdminController extends Controller
         Storage::delete('public/questions/' . $image);
         $question->delete();
         return redirect()->back()->with('success', 'Question deleted successfully');
+    }
+
+    // Participant
+    public function quizParticipant($slug) {
+        $quiz = Quiz::where('slug', $slug)->first();
+        $questions = Question::where('quiz_id', $quiz->id)->count();
+        $participants = QuizParticipant::where('quiz_id', $quiz->id)->get();
+        return view('admin.quiz-participant', compact('quiz', 'participants', 'questions'));
+    }
+
+    public function quizParticipantShow($slug, $id) {
+        $quiz = Quiz::where('slug', $slug)->first();
+        $participant = QuizParticipant::find($id);
+        $questions = Question::where('quiz_id', $quiz->id)->get();
+        $participantAnswer = ParticipantAnswer::where('quiz_participant_id', $participant->id)->get();
+        return view('admin.quiz-participant-show', compact('quiz', 'participant', 'questions', 'participantAnswer'));
     }
 }
