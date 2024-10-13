@@ -9,6 +9,8 @@ use App\Models\Event;
 use App\Models\MemberWork;
 use App\Models\MentorWork;
 use App\Models\News;
+use App\Models\QuizParticipant;
+use App\Models\Registration;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -35,6 +37,9 @@ class AuthController extends Controller
             'email' => 'required|email|unique:users',
             'password' => 'required|confirmed',
             'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10048',
+            'nim' => 'required|unique:users',
+            'birth_date' => 'required', 
+            'birth_place' => 'required',
         ]);
         $user = new User();
         if ($request->hasFile('photo')) {
@@ -44,6 +49,9 @@ class AuthController extends Controller
             $user->photo = $photoName;
         }
         $user->name = $request->name;
+        $user->nim = $request->nim;
+        $user->birth_date = $request->birth_date;
+        $user->birth_place = $request->birth_place;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->level = 'user';
@@ -151,5 +159,43 @@ class AuthController extends Controller
     // Organisasi
     public function organisasi() {
         return view('organisasi');
+    }
+
+    public function ranking()
+    {
+        // TODO: Ranking    
+        $users = User::where('level', 'user')->get();
+
+        // Mulai Perhitungan
+
+        $scoreUser = []; // Inisialisasi variabel $scoreUser
+        foreach ($users as $user) {
+            $scoreUser[$user->id] = 0;
+            $memberWork = MemberWork::where('user_id', $user->id)->first();
+            if ($memberWork) {
+                $scoreUser[$user->id] += 10;
+            }
+            $registration = Registration::where('user_id', $user->id)->first();
+            if ($registration) {
+                $scoreUser[$user->id] += 10;
+            }
+
+            // Menghitung skor kuis
+            $quizParticipants = QuizParticipant::where('user_id', $user->id)->get();
+            $countQuizParticipant = $quizParticipants->count(); // Hitung jumlah peserta kuis sekali
+            foreach ($quizParticipants as $participant) {
+                $scoreUser[$user->id] += $participant->score;
+            }
+            $scoreUser[$user->id] += $countQuizParticipant * 10; // Tambahkan skor berdasarkan jumlah peserta
+        }
+
+        $usersNew = $users->sortByDesc(function ($user) use ($scoreUser) {
+            return $scoreUser[$user->id];
+        });
+
+        $registrationEvent = Registration::all();
+        $memberWork = MemberWork::all();
+        $quizParticipant = QuizParticipant::all();
+        return view('ranking', compact('usersNew', 'scoreUser', 'registrationEvent', 'memberWork', 'quizParticipant'));
     }
 }

@@ -39,6 +39,8 @@ Route::get('/diskusi', [AuthController::class, 'diskusi'])->name('diskusi');
 // Organisasi
 Route::get('/organisasi', [AuthController::class, 'organisasi'])->name('organisasi');
 
+// Ranking
+Route::get('/ranking', [AuthController::class, 'ranking'])->name('ranking');
 
 
 
@@ -115,6 +117,9 @@ Route::group(['middleware' => ['auth.middleware:admin']], function () {
     // Participant
     Route::get('/admin/quiz/participant/{slug}', [AdminController::class, 'quizParticipant'])->name('admin.quiz.participant');
     Route::get('/admin/quiz/participant/show/{slug}/{id}', [AdminController::class, 'quizParticipantShow'])->name('admin.quiz-participant-show');
+
+    // Ranking
+    Route::get('/admin/ranking', [AdminController::class, 'ranking'])->name('admin.ranking');
 });
 
 Route::group(['middleware' => ['auth.middleware:user']], function () {

@@ -57,6 +57,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('diskusi') }}" style="color: white;">Diskusi</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('ranking') }}" style="color: white;">Ranking</a>
+                    </li>
                     @if (Auth::check())
 
                     <li class="nav-item">

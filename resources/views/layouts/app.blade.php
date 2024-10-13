@@ -113,6 +113,10 @@
                             <a href="{{ route('admin.quiz') }}" class="active"><i
                                     class="material-icons-two-tone">quiz</i>Quiz</a>
                         </li>
+                        <li class="@yield('active_ranking')">
+                            <a href="{{ route('admin.ranking') }}" class="active"><i
+                                    class="material-icons-two-tone">stars</i>Rangking</a>
+                        </li>
                     @elseif(Auth::user()->level == 'user')
                         <li class="@yield('active_dashboard')">
                             <a href="{{ route('user.dashboard') }}" class="active"><i

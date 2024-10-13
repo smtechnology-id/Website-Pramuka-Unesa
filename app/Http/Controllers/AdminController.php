@@ -12,6 +12,7 @@ use App\Models\Question;
 use App\Models\Quiz;
 use App\Models\QuizParticipant;
 use App\Models\Registration;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -348,7 +349,7 @@ class AdminController extends Controller
             'description' => 'required',
             'external_link' => 'required',
         ]);
-        
+
         $lesson = Lesson::find($request->id);
         if ($request->hasFile('file')) {
             $file = $request->file('file');
@@ -375,18 +376,21 @@ class AdminController extends Controller
 
 
     // Quiz
-    public function quiz() {
+    public function quiz()
+    {
         $quizzes = Quiz::all();
         $questionCount = Question::all();
         return view('admin.quiz', compact('quizzes', 'questionCount'));
     }
 
-    public function quizCreate() {
+    public function quizCreate()
+    {
 
         return view('admin.quiz-create');
     }
 
-    public function quizStore(Request $request) {
+    public function quizStore(Request $request)
+    {
         $request->validate([
             'title' => 'required',
             'description' => 'required',
@@ -406,13 +410,15 @@ class AdminController extends Controller
         return redirect()->route('admin.quiz-add-question', $quiz->slug)->with('success', 'Quiz Added successfully');
     }
 
-    public function quizAddQuestion($slug) {
+    public function quizAddQuestion($slug)
+    {
         $quiz = Quiz::where('slug', $slug)->first();
         $questions = Question::where('quiz_id', $quiz->id)->get();
         return view('admin.quiz-add-question', compact('quiz', 'questions'));
     }
 
-    public function quizQuestionStore(Request $request) {
+    public function quizQuestionStore(Request $request)
+    {
         $request->validate([
             'question' => 'required',
             'answer_a' => 'required',
@@ -447,12 +453,14 @@ class AdminController extends Controller
         return redirect()->route('admin.quiz-add-question', $slug)->with('success', 'Question added successfully');
     }
 
-    public function quizQuestionEdit($id) {
+    public function quizQuestionEdit($id)
+    {
         $question = Question::find($id);
         return view('admin.quiz-question-edit', compact('question'));
     }
 
-    public function quizQuestionUpdate(Request $request) {
+    public function quizQuestionUpdate(Request $request)
+    {
         $request->validate([
             'question' => 'required',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:10048',
@@ -480,10 +488,11 @@ class AdminController extends Controller
         $question->correct_answer = $request->correct_answer;
         $question->save();
 
-            return redirect()->route('admin.quiz-add-question', $question->quiz->slug)->with('success', 'Question updated successfully');
+        return redirect()->route('admin.quiz-add-question', $question->quiz->slug)->with('success', 'Question updated successfully');
     }
 
-    public function quizQuestionDestroy($id) {
+    public function quizQuestionDestroy($id)
+    {
         $question = Question::find($id);
         $image = $question->image;
         Storage::delete('public/questions/' . $image);
@@ -492,18 +501,59 @@ class AdminController extends Controller
     }
 
     // Participant
-    public function quizParticipant($slug) {
+    public function quizParticipant($slug)
+    {
         $quiz = Quiz::where('slug', $slug)->first();
         $questions = Question::where('quiz_id', $quiz->id)->count();
         $participants = QuizParticipant::where('quiz_id', $quiz->id)->get();
         return view('admin.quiz-participant', compact('quiz', 'participants', 'questions'));
     }
 
-    public function quizParticipantShow($slug, $id) {
+    public function quizParticipantShow($slug, $id)
+    {
         $quiz = Quiz::where('slug', $slug)->first();
         $participant = QuizParticipant::find($id);
         $questions = Question::where('quiz_id', $quiz->id)->get();
         $participantAnswer = ParticipantAnswer::where('quiz_participant_id', $participant->id)->get();
         return view('admin.quiz-participant-show', compact('quiz', 'participant', 'questions', 'participantAnswer'));
+    }
+
+    // ranking
+    public function ranking()
+    {
+        // TODO: Ranking    
+        $users = User::where('level', 'user')->get();
+
+        // Mulai Perhitungan
+
+        $scoreUser = []; // Inisialisasi variabel $scoreUser
+        foreach ($users as $user) {
+            $scoreUser[$user->id] = 0;
+            $memberWork = MemberWork::where('user_id', $user->id)->first();
+            if ($memberWork) {
+                $scoreUser[$user->id] += 10;
+            }
+            $registration = Registration::where('user_id', $user->id)->first();
+            if ($registration) {
+                $scoreUser[$user->id] += 10;
+            }
+
+            // Menghitung skor kuis
+            $quizParticipants = QuizParticipant::where('user_id', $user->id)->get();
+            $countQuizParticipant = $quizParticipants->count(); // Hitung jumlah peserta kuis sekali
+            foreach ($quizParticipants as $participant) {
+                $scoreUser[$user->id] += $participant->score;
+            }
+            $scoreUser[$user->id] += $countQuizParticipant * 10; // Tambahkan skor berdasarkan jumlah peserta
+        }
+
+        $usersNew = $users->sortByDesc(function ($user) use ($scoreUser) {
+            return $scoreUser[$user->id];
+        });
+
+        $registrationEvent = Registration::all();
+        $memberWork = MemberWork::all();
+        $quizParticipant = QuizParticipant::all();
+        return view('admin.ranking', compact('usersNew', 'scoreUser', 'registrationEvent', 'memberWork', 'quizParticipant'));
     }
 }

@@ -97,6 +97,18 @@
                                 aria-describedby="signInEmail" placeholder="Masukkan Email" required>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="signInEmail" class="form-label">Tanggal Lahir</label>
+                            <input type="date" name="birth_date" class="form-control m-b-md" id="signInEmail"
+                                aria-describedby="signInEmail"required>
+                        </div>
+                        <div class="col-6">
+                            <label for="signInEmail" class="form-label">Tempat Lahir</label>
+                            <input type="text" name="birth_place" class="form-control m-b-md" id="signInEmail"
+                                aria-describedby="signInEmail" placeholder="Masukkan Tempat Lahir" required>
+                        </div>
+                    </div>
 
                     <div class="row">
                         <div class="col-6">

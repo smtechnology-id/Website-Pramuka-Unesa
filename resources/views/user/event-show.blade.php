@@ -24,7 +24,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 @if ($statusPendaftaran == '0')
-                                <form action="">
+                                <form action="{{ route('user.event.register') }}" method="post">
                                     @csrf
                                     <div class="form-group">
                                         <label for="">Nama Lengkap</label>

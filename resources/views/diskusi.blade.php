@@ -22,7 +22,7 @@
         <!-- Daftar topik diskusi -->
         <div class="diskusi-list">
             @foreach ($diskusi as $item)
-                <div class="diskusi-item mb-4 p-4 border border-light rounded shadow-sm"> <!-- Enhanced styling with shadow -->
+                <div class="diskusi-item mb-4 p-4 border border-light rounded shadow-sm">
                     <div class="d-flex align-items-center mb-3">
                         @php
                             $photo = $item->user->photo;
@@ -33,7 +33,7 @@
                             }
                         @endphp
                         <img src="{{$photo}}" alt="User Avatar" class="rounded-circle border border-primary" width="60" height="60"> <!-- Increased size and added border -->
-                        <h3 class="ml-3 text-primary font-weight-bold">User {{ $item->user->id }}</h3> <!-- Changed text color and weight -->
+                        <h3 class="ml-3 text-primary font-weight-bold">{{ $item->user->name }}</h3> <!-- Changed text color and weight -->
                     </div>
                     <p class="text-muted mb-2">Posted on {{ $item->created_at->format('d F Y') }}</p>
                     <p class="font-weight-bold text-dark">{{ $item->content }}</p> <!-- Changed text color -->

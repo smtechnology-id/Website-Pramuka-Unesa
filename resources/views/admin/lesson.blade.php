@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('active_event', 'active-page')
+@section('active_lesson', 'active-page')
 @section('content')
     <div class="container">
         <div class="card">
@@ -26,7 +26,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $new->title }}</td>
                                     <td>{!! Str::limit($new->description, 100) !!}</td>
-                                    <td><a href="{{ asset('storage/lesson/' . $new->file) }}" target="_blank" class="btn btn-primary">Download Materi</a></td>
+                                    <td><a href="{{ asset('storage/lesson/' . $new->file) }}" target="_blank" class="btn btn-outline-primary">Download Image</a></td>
                                     <td>{{ $new->created_at->format('d F Y') }}</td>
                                     <td>
                                         <a href="{{ route('admin.lesson.edit', $new->id) }}" class="btn btn-primary">Edit</a>
