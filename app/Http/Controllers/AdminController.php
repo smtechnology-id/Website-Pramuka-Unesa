@@ -7,10 +7,14 @@ use App\Models\Lesson;
 use App\Models\MemberWork;
 use App\Models\MentorWork;
 use App\Models\News;
+use App\Models\Question;
+use App\Models\Quiz;
 use App\Models\Registration;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Nette\Utils\Random;
+use Spatie\LaravelIgnition\Recorders\DumpRecorder\DumpHandler;
 
 class AdminController extends Controller
 {
@@ -364,5 +368,124 @@ class AdminController extends Controller
         Storage::delete('public/lesson/' . $file);
         $lesson->delete();
         return redirect()->route('admin.lesson')->with('success', 'Lesson deleted successfully');
+    }
+
+
+
+    // Quiz
+    public function quiz() {
+        $quizzes = Quiz::all();
+        $questionCount = Question::all();
+        return view('admin.quiz', compact('quizzes', 'questionCount'));
+    }
+
+    public function quizCreate() {
+
+        return view('admin.quiz-create');
+    }
+
+    public function quizStore(Request $request) {
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'status' => 'required',
+        ]);
+
+        $quiz = new Quiz();
+        $codeQuiz = Str::random(6);
+        $slug = Str::slug($request->title);
+        $quiz->code_quiz = $codeQuiz;
+        $quiz->slug = $slug;
+        $quiz->title = $request->title;
+        $quiz->description = $request->description;
+        $quiz->status = $request->status;
+        $quiz->save();
+
+        return redirect()->route('admin.quiz-add-question', $quiz->slug)->with('success', 'Quiz Added successfully');
+    }
+
+    public function quizAddQuestion($slug) {
+        $quiz = Quiz::where('slug', $slug)->first();
+        $questions = Question::where('quiz_id', $quiz->id)->get();
+        return view('admin.quiz-add-question', compact('quiz', 'questions'));
+    }
+
+    public function quizQuestionStore(Request $request) {
+        $request->validate([
+            'question' => 'required',
+            'answer_a' => 'required',
+            'answer_b' => 'required',
+            'answer_c' => 'required',
+            'answer_d' => 'required',
+            'answer_e' => 'required',
+            'correct_answer' => 'required',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:10048',
+        ]);
+
+        $question = new Question();
+        $question->quiz_id = $request->quiz_id;
+        $question->question = $request->question;
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->storeAs('questions', $imageName, 'public');
+            $question->image = $imageName;
+        }
+        $question->answer_a = $request->answer_a;
+        $question->answer_b = $request->answer_b;
+        $question->answer_c = $request->answer_c;
+        $question->answer_d = $request->answer_d;
+        $question->answer_e = $request->answer_e;
+        $question->correct_answer = $request->correct_answer;
+        $question->save();
+
+        $quiz = Quiz::find($request->quiz_id);
+        $slug = $quiz->slug;
+        return redirect()->route('admin.quiz-add-question', $slug)->with('success', 'Question added successfully');
+    }
+
+    public function quizQuestionEdit($id) {
+        $question = Question::find($id);
+        return view('admin.quiz-question-edit', compact('question'));
+    }
+
+    public function quizQuestionUpdate(Request $request) {
+        $request->validate([
+            'question' => 'required',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:10048',
+            'answer_a' => 'required',
+            'answer_b' => 'required',
+            'answer_c' => 'required',
+            'answer_d' => 'required',
+            'answer_e' => 'required',
+            'correct_answer' => 'required',
+        ]);
+
+        $question = Question::find($request->id);
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->storeAs('questions', $imageName, 'public');
+            $question->image = $imageName;
+        }
+        $question->question = $request->question;
+        $question->answer_a = $request->answer_a;
+        $question->answer_b = $request->answer_b;
+        $question->answer_c = $request->answer_c;
+        $question->answer_d = $request->answer_d;
+        $question->answer_e = $request->answer_e;
+        $question->correct_answer = $request->correct_answer;
+        $question->save();
+
+            return redirect()->route('admin.quiz-add-question', $question->quiz->slug)->with('success', 'Question updated successfully');
+    }
+
+    public function quizQuestionDestroy($id) {
+        $question = Question::find($id);
+        $image = $question->image;
+        Storage::delete('public/questions/' . $image);
+        $question->delete();
+        return redirect()->back()->with('success', 'Question deleted successfully');
     }
 }

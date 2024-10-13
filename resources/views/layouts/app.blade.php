@@ -108,6 +108,11 @@
                             <a href="{{ route('admin.lesson') }}" class="active"><i
                                     class="material-icons-two-tone">book</i>Materi</a>
                         </li>
+
+                        <li class="@yield('active_quiz')">
+                            <a href="{{ route('admin.quiz') }}" class="active"><i
+                                    class="material-icons-two-tone">quiz</i>Quiz</a>
+                        </li>
                     @elseif(Auth::user()->level == 'user')
                         <li class="@yield('active_dashboard')">
                             <a href="{{ route('user.dashboard') }}" class="active"><i
@@ -128,6 +133,10 @@
                         <li class="@yield('active_lesson')">
                             <a href="{{ route('user.lesson') }}" class="active"><i
                                     class="material-icons-two-tone">book</i>Materi</a>
+                        </li>
+                        <li class="@yield('active_quiz')">
+                            <a href="{{ route('user.quiz') }}" class="active"><i
+                                    class="material-icons-two-tone">quiz</i>Quiz</a>
                         </li>
                     @endif
 

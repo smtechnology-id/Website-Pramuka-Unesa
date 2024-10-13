@@ -96,6 +96,21 @@ Route::group(['middleware' => ['auth.middleware:admin']], function () {
     Route::get('/admin/lesson/edit/{id}', [AdminController::class, 'lessonEdit'])->name('admin.lesson.edit');
     Route::post('/admin/lesson/update', [AdminController::class, 'lessonUpdate'])->name('admin.lesson.update');
     Route::get('/admin/lesson/destroy/{id}', [AdminController::class, 'lessonDestroy'])->name('admin.lesson.destroy');
+
+    // Quiz
+    Route::get('/admin/quiz', [AdminController::class, 'quiz'])->name('admin.quiz');
+    Route::get('/admin/quiz/create', [AdminController::class, 'quizCreate'])->name('admin.quiz.create');
+    Route::post('/admin/quiz/store', [AdminController::class, 'quizStore'])->name('admin.quiz.store');
+    Route::get('/admin/quiz/edit/{id}', [AdminController::class, 'quizEdit'])->name('admin.quiz.edit');
+    Route::post('/admin/quiz/update', [AdminController::class, 'quizUpdate'])->name('admin.quiz.update');
+    Route::get('/admin/quiz/destroy/{id}', [AdminController::class, 'quizDestroy'])->name('admin.quiz.destroy');
+
+    // add Question
+    Route::get('/admin/quiz/add-question/{slug}', [AdminController::class, 'quizAddQuestion'])->name('admin.quiz-add-question');
+    Route::post('/admin/quiz/question/store', [AdminController::class, 'quizQuestionStore'])->name('admin.quiz-question.store');
+    Route::get('/admin/quiz/question/edit/{id}', [AdminController::class, 'quizQuestionEdit'])->name('admin.quiz-question.edit');
+    Route::post('/admin/quiz/question/update', [AdminController::class, 'quizQuestionUpdate'])->name('admin.quiz-question.update');
+    Route::get('/admin/quiz/question/destroy/{id}', [AdminController::class, 'quizQuestionDestroy'])->name('admin.quiz-question.destroy');
 });
 
 Route::group(['middleware' => ['auth.middleware:user']], function () {
@@ -127,4 +142,10 @@ Route::group(['middleware' => ['auth.middleware:user']], function () {
     Route::post('/comment-discussion', [UserController::class, 'commentDiscussionStore'])->name('comment-discussion.store');
     Route::post('/comment-mentor-work', [UserController::class, 'commentMentorWorkStore'])->name('comment-mentor-work.store');
     Route::post('/comment-member-work', [UserController::class, 'commentMemberWorkStore'])->name('comment-member-work.store');
+
+    // Quiz
+    Route::get('/user/quiz', [UserController::class, 'quiz'])->name('user.quiz');
+    Route::get('/user/quiz/page/{slug}', [UserController::class, 'quizWelcome'])->name('user.quiz.welcome');
+    Route::get('/user/quiz/page/show/{slug}', [UserController::class, 'quizShow'])->name('user.quiz.show');
+    Route::post('/user/quiz/submit', [UserController::class, 'quizSubmit'])->name('user.quiz.submit');
 });

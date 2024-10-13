@@ -9,6 +9,10 @@ use App\Models\Discussion;
 use App\Models\Event;
 use App\Models\Lesson;
 use App\Models\MemberWork;
+use App\Models\ParticipantAnswer;
+use App\Models\Question;
+use App\Models\Quiz;
+use App\Models\QuizParticipant;
 use App\Models\Registration;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -215,4 +219,113 @@ class UserController extends Controller
         $lesson = Lesson::where('id', $id)->first();
         return view('user.lesson-show', compact('lesson'));
     }
+
+    // Quiz
+    public function quiz()
+    {
+        $participants = QuizParticipant::all();
+        $quizzes = Quiz::orderBy('created_at', 'desc')->get();
+        return view('user.quiz', compact('quizzes', 'participants'));
+    }
+    public function quizWelcome($slug)
+    {
+        $quiz = Quiz::where('slug', $slug)->first();
+        // Cek Apakah Sudah Pernah Mengerjakan Quiz
+        $participant = QuizParticipant::where('user_id', auth()->user()->id)->where('quiz_id', $quiz->id)->first();
+        if ($participant) {
+            $status = '1';
+        } else {
+            $status = '0';
+        }
+        return view('user.quiz-welcome', compact('quiz', 'status', 'participant'));
+    }
+    public function quizShow($slug)
+    {
+        $quiz = Quiz::where('slug', $slug)->first();
+        // Cek Apakah Sudah Pernah Mengerjakan Quiz
+        $participant = QuizParticipant::where('user_id', auth()->user()->id)->where('quiz_id', $quiz->id)->first();
+        if ($participant) {
+            if ($participant->end_time) {
+                return redirect()->route('user.quiz.welcome', $slug)->with('error', 'Anda Sudah Mengerjakan Quiz Ini');
+            }
+        } else {
+            // Add New Participant
+            $participant = new QuizParticipant();
+            $participant->user_id = auth()->user()->id;
+            $participant->quiz_id = $quiz->id;
+            $participant->start_time = now();
+            $participant->score = 0;
+            $participant->save();
+        }
+        $questions = Question::where('quiz_id', $quiz->id)->get();
+        $usageTime = now()->diffInMinutes($participant->start_time);
+        $participantAnswer = ParticipantAnswer::where('quiz_id', $quiz->id)->where('quiz_participant_id', $participant->id)->get();
+        return view('user.quiz-show', compact('quiz', 'questions', 'participant', 'usageTime', 'participantAnswer'));
+    }
+    public function quizSubmit(Request $request)
+    {
+        $request->validate([
+            'quiz_id' => 'required',
+            'quiz_participant_id' => 'required',
+        ]);
+        $questions = Question::where('quiz_id', $request->quiz_id)->get();
+        foreach ($questions as $question) {
+            // Cek Apakah Sudah Pernah Menjawab
+            $check = ParticipantAnswer::where('quiz_id', $request->quiz_id)->where('quiz_participant_id', $request->quiz_participant_id)->where('question_id', $question->id)->first();
+            if (!$check) {
+                $answer = new ParticipantAnswer();
+                $answer->quiz_id = $request->quiz_id;
+                $answer->quiz_participant_id = $request->quiz_participant_id;
+                $answer->question_id = $question->id;
+                $answer->answer = $request->{$question->id};
+               
+                // is_correct
+                if ($question->correct_answer == $answer->answer) {
+                    $answer->is_correct = true;
+                } else {
+                    $answer->is_correct = false;
+                }
+                // Update Score
+                
+                $answer->save();
+                if($answer)
+                {
+                    $participant = QuizParticipant::where('id', $request->quiz_participant_id)->first();
+                    $score = $participant->score;
+                    // Hitung Jumlah Jawaban Benar
+                    $correctAnswer = ParticipantAnswer::where('quiz_id', $request->quiz_id)->where('quiz_participant_id', $request->quiz_participant_id)->where('is_correct', true)->count();
+                    $participant->score = $correctAnswer;
+                    
+                    $participant->save();
+                }
+            } else {
+                $check->answer = $request->{$question->id};
+                
+                // is_correct
+                if ($question->correct_answer == $check->answer) {
+                    $check->is_correct = true;
+                } else {
+                    $check->is_correct = false;
+                }
+                
+                $check->save();
+                if($check)
+                {
+                    $participant = QuizParticipant::where('id', $request->quiz_participant_id)->first();
+                    $score = $participant->score;
+                    // Hitung Jumlah Jawaban Benar
+                    $correctAnswer = ParticipantAnswer::where('quiz_id', $request->quiz_id)->where('quiz_participant_id', $request->quiz_participant_id)->where('is_correct', true)->count();
+                    $participant->score = $correctAnswer;
+                    
+                    $participant->save();
+
+                    // Tambahkan Waktu Selesai
+                    $participant->end_time = now();
+                    $participant->save();
+                }
+            }
+        }
+        return redirect()->route('user.quiz')->with('success', 'Quiz Berhasil Di Submit');
+    }
+    
 }
