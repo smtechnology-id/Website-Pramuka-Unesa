@@ -27,7 +27,7 @@
                         style="height: 100%;">
                         <h1>PRAMUKA UNESA</h1>
                         <h2>Racana K.H. Dewantara dan R.A. Kartini</h2>
-                        <p>Gugus Depan 24.431 dan 24.414</p>
+                        <p>Gugus Depan 24.413 dan 24.414</p>
                         <p>Universitas Negeri Surabaya</p>
                     </div>
               </div>

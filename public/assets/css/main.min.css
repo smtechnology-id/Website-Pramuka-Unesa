@@ -864,7 +864,7 @@ h6 {
     width: 40px;
     height: 40px;
     font-size: 18px;
-    background: url(../images/neptune.png) no-repeat;
+    background: url(../images/logo-pramuka.png) no-repeat;
     background-position: center left;
     background-size: 40px;
     display: block;
@@ -6586,7 +6586,7 @@ span.flatpickr-weekday {
 .app-auth-container .logo a {
     display: flex;
     padding-left: 70px;
-    background: url(../images/neptune.png) no-repeat;
+    background: url(../images/logo-pramuka.png) no-repeat;
     height: 50px;
     background-size: 50px;
     align-items: center;

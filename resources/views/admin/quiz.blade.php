@@ -45,7 +45,7 @@
                                                 <a href="{{ route('admin.quiz-add-question', $quiz->slug) }}" class="btn btn-sm btn-primary"><i class="material-icons">
                                                     visibility
                                                 </i></a>
-                                                <a href="{{ route('admin.quiz.edit', $quiz->id) }}" class="btn btn-sm btn-warning"><i class="material-icons">
+                                                <a href="{{ route('admin.quiz.edit', $quiz->slug) }}" class="btn btn-sm btn-warning"><i class="material-icons">
                                                     edit
                                                 </i></a>
                                                 <a href="{{ route('admin.quiz.destroy', $quiz->id) }}" class="btn btn-sm btn-danger"><i class="material-icons">

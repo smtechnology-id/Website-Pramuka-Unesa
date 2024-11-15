@@ -40,8 +40,8 @@
     <link href="{{ asset('assets/css/main.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
 
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/images/neptune.png') }}" />
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/images/neptune.png') }}" />
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/images/logo-pramuka.png') }}" />
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/images/logo-pramuka.png') }}" />
 
     <script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
 
@@ -57,7 +57,7 @@
     <div class="app align-content-stretch d-flex flex-wrap">
         <div class="app-sidebar">
             <div class="logo">
-                <a href="#" class="logo-icon"><span class="logo-text">WBKP</span></a>
+                <a href="#" class="logo-icon"><span class="logo-text">UNESA</span></a>
                 <div class="sidebar-user-switcher user-activity-online">
                     <a href="#">
                         @if (Auth::user()->photo)
@@ -203,24 +203,7 @@
                                     <a class="nav-link hide-sidebar-toggle-button" href="#"><i
                                             class="material-icons">first_page</i></a>
                                 </li>
-                                <li class="nav-item dropdown hidden-on-mobile">
-                                    <a class="nav-link dropdown-toggle" href="#" id="addDropdownLink"
-                                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="material-icons">add</i>
-                                    </a>
-                                    <ul class="dropdown-menu" aria-labelledby="addDropdownLink">
-                                        @if (Auth::user()->level == 'admin')
-                                            <li><a class="dropdown-item" href="#">New Account Duta Belia</a>
-                                            </li>
-                                            <li><a class="dropdown-item" href="#">New Account Guru</a></li>
-                                            <li><a class="dropdown-item" href="#">New Account Puskesmas</a></li>
-                                        @elseif(Auth::user()->level == 'duta')
-                                            <li><a class="dropdown-item" href="#">New Data Siswa</a></li>
-                                            <li><a class="dropdown-item" href="#">New Laporan</a></li>
-                                        @endif
-
-                                    </ul>
-                                </li>
+                                
 
                             </ul>
 

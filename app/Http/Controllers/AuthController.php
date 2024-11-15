@@ -11,6 +11,7 @@ use App\Models\MentorWork;
 use App\Models\News;
 use App\Models\QuizParticipant;
 use App\Models\Registration;
+use App\Models\SkuExam;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -167,6 +168,8 @@ class AuthController extends Controller
     {
         // TODO: Ranking    
         $users = User::where('level', 'user')->get();
+        $usersSku = User::where('level', 'user')->get();
+        $sku = SkuExam::all();
 
         // Mulai Perhitungan
 
@@ -198,6 +201,6 @@ class AuthController extends Controller
         $registrationEvent = Registration::all();
         $memberWork = MemberWork::all();
         $quizParticipant = QuizParticipant::all();
-        return view('ranking', compact('usersNew', 'scoreUser', 'registrationEvent', 'memberWork', 'quizParticipant'));
+        return view('ranking', compact('usersNew', 'scoreUser', 'registrationEvent', 'memberWork', 'quizParticipant', 'sku', 'usersSku'));
     }
 }

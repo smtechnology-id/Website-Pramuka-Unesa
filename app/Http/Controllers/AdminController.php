@@ -428,6 +428,28 @@ class AdminController extends Controller
         return redirect()->route('admin.quiz-add-question', $quiz->slug)->with('success', 'Quiz Added successfully');
     }
 
+
+    public function quizEdit($slug)
+    {
+        $quiz = Quiz::where('slug', $slug)->first();
+        return view('admin.quiz-edit', compact('quiz'));
+    }
+
+    public function quizUpdate(Request $request)
+    {
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'status' => 'required',
+        ]);
+        $quiz = Quiz::find($request->id);
+        $quiz->title = $request->title;
+        $quiz->description = $request->description;
+        $quiz->status = $request->status;
+        $quiz->save();
+        return redirect()->route('admin.quiz')->with('success', 'Quiz updated successfully');
+    }
+
     public function quizAddQuestion($slug)
     {
         $quiz = Quiz::where('slug', $slug)->first();

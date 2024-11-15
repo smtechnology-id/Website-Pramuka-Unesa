@@ -22,7 +22,7 @@
                 <div class="col-md-12">
                     <h1 class="text-center mb-4">Pembina Pramuka Unesa</h1>
                 </div>
-                <h3 class="text-center mb-4">Pembina K.H. Dewantoro</h3>
+                <h3 class="text-center mb-4">Pembina K.H. Dewantara</h3>
                 <div class="col-md-12">
                     <div class="row">
                         <div class="col-md-4 mb-2">

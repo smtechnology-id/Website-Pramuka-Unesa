@@ -17,11 +17,11 @@
         </div>
     </div>
     {{-- Organisasi --}}
-    <div class="container organisasi">
+    <div class="container organisasi mb-5">
         <div class="row">
             <div class="col-12">
                 <div class="table-responsive">
-                    <table class="table table-striped table-bordered">
+                    <table class="table table-striped table-bordered" >
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -52,6 +52,50 @@
                             @endforeach
                         </tbody>
                     </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container organisasi">
+        <div class="row">
+            <div class="col-12">
+                <div class="table-responsive">
+                    <h5>Data Progres Uji SKU</h5>
+                    <table class="table table-striped table-bordered" id="datatable1">
+                        <thead>
+                            <tr class="text-center align-middle">
+                                <th rowspan="2">No</th>
+                                <th rowspan="2">Nama Peserta</th>
+                                <th rowspan="2">NIM</th>
+                                <th colspan="4" class="text-center">Uji SKU</th>
+                            </tr>
+                            <tr>
+                                <th>Lulus</th>
+                                <th>Tidak Lulus</th>
+                                <th>Perlu di Validasi</th>
+                                <th>Belum Uji</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($usersSku as $item)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $item->name }}</td>
+                                <td>{{ $item->nim }}</td>
+                                <td class="text-center"> <span class="badge bg-success" style="font-size: 14px">{{ $sku->where('user_id', $item->id)->where('status', 'lulus')->count() }}</span></td>
+                                <td class="text-center"> <span class="badge bg-danger" style="font-size: 14px">{{ $sku->where('user_id', $item->id)->where('status', 'tidak lulus')->count() }}</span></td>
+                                <td class="text-center"> <span class="badge bg-warning" style="font-size: 14px">{{ $sku->where('user_id', $item->id)->where('status', 'pending')->count() }}</span></td>
+                                <td class="text-center"> <span class="badge badge-secondary" style="font-size: 14px">@php
+                                    $total = 24;
+                                    echo $total - $sku->where('user_id', $item->id)->where('status', 'lulus')->count() - $sku->where('user_id', $item->id)->where('status', 'tidak lulus')->count() - $sku->where('user_id', $item->id)->where('status', 'pending')->count();
+                                @endphp</span></td>
+                                
+                            </tr>
+                            
+                            @endforeach
+                        </tbody>
+                    </table>
+
                 </div>
             </div>
         </div>

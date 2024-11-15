@@ -225,7 +225,7 @@ class UserController extends Controller
     public function quiz()
     {
         $participants = QuizParticipant::all();
-        $quizzes = Quiz::orderBy('created_at', 'desc')->get();
+        $quizzes = Quiz::orderBy('created_at', 'desc')->where('status', 'publish')->get();
         return view('user.quiz', compact('quizzes', 'participants'));
     }
     public function quizWelcome($slug)

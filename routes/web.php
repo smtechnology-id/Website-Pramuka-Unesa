@@ -108,7 +108,7 @@ Route::group(['middleware' => ['auth.middleware:admin']], function () {
     Route::get('/admin/quiz', [AdminController::class, 'quiz'])->name('admin.quiz');
     Route::get('/admin/quiz/create', [AdminController::class, 'quizCreate'])->name('admin.quiz.create');
     Route::post('/admin/quiz/store', [AdminController::class, 'quizStore'])->name('admin.quiz.store');
-    Route::get('/admin/quiz/edit/{id}', [AdminController::class, 'quizEdit'])->name('admin.quiz.edit');
+    Route::get('/admin/quiz/edit/{slug}', [AdminController::class, 'quizEdit'])->name('admin.quiz.edit');
     Route::post('/admin/quiz/update', [AdminController::class, 'quizUpdate'])->name('admin.quiz.update');
     Route::get('/admin/quiz/destroy/{id}', [AdminController::class, 'quizDestroy'])->name('admin.quiz.destroy');
 
