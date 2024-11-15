@@ -32,5 +32,14 @@ class UsersTableSeeder extends Seeder
             'birth_date' => '2000-01-01',
             'birth_place' => 'Jakarta',
         ]);
+        User::create([
+            'name' => 'Pembina',
+            'email' => 'pembina@gmail.com',
+            'password' => Hash::make('pembina'),
+            'level' => 'pembina',
+            'nim' => '1234567890',
+            'birth_date' => '2000-01-01',
+            'birth_place' => 'Jakarta',
+        ]);
     }
 }

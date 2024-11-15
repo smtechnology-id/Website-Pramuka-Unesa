@@ -71,7 +71,9 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             if (Auth::user()->level == 'admin') {
                 return redirect('/admin/dashboard');
-            } else {
+            } elseif(Auth::user()->level == 'pembina') {
+                return redirect('/pembina/dashboard');
+            } elseif(Auth::user()->level == 'user') {
                 return redirect('/');
             }
         }

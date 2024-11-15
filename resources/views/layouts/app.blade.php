@@ -61,13 +61,19 @@
                 <div class="sidebar-user-switcher user-activity-online">
                     <a href="#">
                         @if (Auth::user()->photo)
-                            <img src="{{ asset('assets/images/photo/' . Auth::user()->photo) }}">
+                            <img src="{{ asset('storage/user/' . Auth::user()->photo) }}">
                         @else
                             <img src="{{ asset('assets/images/user.png') }}">
                         @endif
                         <span class="activity-indicator"></span>
                         <span class="user-info-text">{{ Auth::user()->name }}<br><span class="user-state-info">
-                                Administrator
+                                @if (Auth::user()->level == 'admin')
+                                    Administrator
+                                @elseif(Auth::user()->level == 'pembina')
+                                    Pembina
+                                @elseif(Auth::user()->level == 'user')
+                                    User
+                                @endif
                             </span>
                         </span>
                     </a>
@@ -113,9 +119,33 @@
                             <a href="{{ route('admin.quiz') }}" class="active"><i
                                     class="material-icons-two-tone">quiz</i>Quiz</a>
                         </li>
+                        <li class="@yield('active_sku')">
+                            <a href="{{ route('admin.sku') }}" class="active"><i
+                                    class="material-icons-two-tone">assignment_ind</i>Uji SKu</a>
+                        </li>
                         <li class="@yield('active_ranking')">
                             <a href="{{ route('admin.ranking') }}" class="active"><i
                                     class="material-icons-two-tone">stars</i>Rangking</a>
+                        </li>
+                        <li class="sidebar-title">
+                            Account
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.user-data') }}" class="active"><i
+                                    class="material-icons-two-tone">person</i>User</a>
+                        </li>
+                    @elseif(Auth::user()->level == 'pembina')
+                        <li class="@yield('active_dashboard')">
+                            <a href="{{ route('pembina.dashboard') }}" class="active"><i
+                                    class="material-icons-two-tone">dashboard</i>Dashboard</a>
+                        </li>
+                        <li class="@yield('active_mentor_work')">
+                            <a href="{{ route('pembina.mentor-work') }}" class="active"><i
+                                    class="material-icons-two-tone">work</i>Karya Pembina</a>
+                        </li>
+                        <li class="@yield('active_sku')">
+                            <a href="{{ route('pembina.sku') }}" class="active"><i
+                                    class="material-icons-two-tone">assignment_ind</i>Uji SKu</a>
                         </li>
                     @elseif(Auth::user()->level == 'user')
                         <li class="@yield('active_dashboard')">
@@ -142,12 +172,14 @@
                             <a href="{{ route('user.quiz') }}" class="active"><i
                                     class="material-icons-two-tone">quiz</i>Quiz</a>
                         </li>
+                        <li class="@yield('active_sku')">
+                            <a href="{{ route('user.sku') }}" class="active"><i
+                                    class="material-icons-two-tone">assignment_ind</i>Uji SKu</a>
+                        </li>
                     @endif
 
 
-                    <li class="sidebar-title">
-                        Account
-                    </li>
+                    
                     <li class="@yiend('active')">
                         <a href="{{ route('logout') }}" class="active"><i
                                 class="material-icons-two-tone">logout</i>Logout</a>

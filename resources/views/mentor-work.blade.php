@@ -29,7 +29,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <h5 style="color: white;">{{ $item->title }}</h5>
-                                    <p style="color: white;">By {{ $item->author }}</p>
+                                    <p style="color: white;">By {{ $item->user->name }}</p>
                                     <p style="color: white;">{!! Str::limit($item->content, 200) !!}</p>
                                     <a href="{{ route('mentor-work.show', $item->slug) }}" class="btn" style="background-color: #d16223; border-color: #fff; color: white;">Selengkapnya</a>
                                 </div>

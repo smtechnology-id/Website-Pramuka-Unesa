@@ -11,15 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mentor_works', function (Blueprint $table) {
+        Schema::create('sku_exams', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('photo')->nullable();
-            $table->string('title');
-            $table->string('slug');
-            $table->text('content');
-            $table->string('status');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->string('no_sku');
+            $table->string('file');
+            $table->text('deskripsi')->nullable();
+            $table->string('status')->default('draft');
+            $table->text('catatan_pembina')->nullable();
+            $table->string('nama_pembina')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('mentor_works');
+        Schema::dropIfExists('sku_exams');
     }
 };

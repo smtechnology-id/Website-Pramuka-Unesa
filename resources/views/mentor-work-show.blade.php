@@ -23,7 +23,7 @@
 
                 <div class="col-md-8">
                     <h1>{{ $mentorWork->title }}</h1>
-                    <p>Author: {{ $mentorWork->author }} | {{ $mentorWork->created_at->format('d F Y') }}</p>
+                    <p>Author: {{ $mentorWork->user->name }} | {{ $mentorWork->created_at->format('d F Y') }}</p>
                     <img src="{{ asset('storage/mentor-work/' . $mentorWork->photo) }}" alt="{{ $mentorWork->title }}"
                         style="width: 100%; height: 500px; margin-top: 20px; margin-bottom: 20px;">
                     <p>{!! $mentorWork->content !!}</p>

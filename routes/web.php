@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PembinaController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+
 
 
 /*
@@ -74,6 +76,9 @@ Route::group(['middleware' => ['auth.middleware:admin']], function () {
     Route::post('/admin/mentor-work/update', [AdminController::class, 'mentorWorkUpdate'])->name('admin.mentor-work.update');
     Route::get('/admin/mentor-work/destroy/{id}', [AdminController::class, 'mentorWorkDestroy'])->name('admin.mentor-work.destroy');
 
+    Route::get('/admin/mentor-work/approve/{slug}', [AdminController::class, 'mentorWorkApprove'])->name('admin.mentor-work.approve');
+    Route::get('/admin/mentor-work/reject/{slug}', [AdminController::class, 'mentorWorkReject'])->name('admin.mentor-work.reject');
+
     // Member Work
     Route::get('/admin/member-work', [AdminController::class, 'memberWork'])->name('admin.member-work');
     Route::get('/admin/member-work/approve/{id}', [AdminController::class, 'memberWorkApprove'])->name('admin.member-work.approve');
@@ -120,6 +125,15 @@ Route::group(['middleware' => ['auth.middleware:admin']], function () {
 
     // Ranking
     Route::get('/admin/ranking', [AdminController::class, 'ranking'])->name('admin.ranking');
+
+    // User Data
+    Route::get('/admin/user-data', [AdminController::class, 'userData'])->name('admin.user-data');
+    Route::post('/admin/user-data/store', [AdminController::class, 'userDataStore'])->name('admin.user-data.store');
+    Route::post('/admin/user-data/update', [AdminController::class, 'userDataUpdate'])->name('admin.user-data.update');
+
+    // SKU
+    Route::get('/admin/sku', [AdminController::class, 'sku'])->name('admin.sku');
+    Route::get('/admin/sku/detail/{id}', [AdminController::class, 'skuDetail'])->name('admin.sku.detail');
 });
 
 Route::group(['middleware' => ['auth.middleware:user']], function () {
@@ -157,4 +171,27 @@ Route::group(['middleware' => ['auth.middleware:user']], function () {
     Route::get('/user/quiz/page/{slug}', [UserController::class, 'quizWelcome'])->name('user.quiz.welcome');
     Route::get('/user/quiz/page/show/{slug}', [UserController::class, 'quizShow'])->name('user.quiz.show');
     Route::post('/user/quiz/submit', [UserController::class, 'quizSubmit'])->name('user.quiz.submit');
+
+    // Sku
+    Route::get('/user/sku', [UserController::class, 'sku'])->name('user.sku');
+    Route::post('/user/sku/store', [UserController::class, 'skuStore'])->name('user.sku.store');
+    Route::post('/user/sku/update', [UserController::class, 'skuUpdate'])->name('user.sku.update');
+});
+
+Route::group(['middleware' => ['auth.middleware:pembina']], function () {   
+    Route::get('/pembina/dashboard', [PembinaController::class, 'index'])->name('pembina.dashboard');
+
+    // Mentor Work
+    Route::get('/pembina/mentor-work', [PembinaController::class, 'mentorWork'])->name('pembina.mentor-work');
+    Route::get('/pembina/mentor-work/create', [PembinaController::class, 'mentorWorkCreate'])->name('pembina.mentor-work.create');
+    Route::post('/pembina/mentor-work/store', [PembinaController::class, 'mentorWorkStore'])->name('pembina.mentor-work.store');
+    Route::get('/pembina/mentor-work/edit/{id}', [PembinaController::class, 'mentorWorkEdit'])->name('pembina.mentor-work.edit');
+    Route::post('/pembina/mentor-work/update', [PembinaController::class, 'mentorWorkUpdate'])->name('pembina.mentor-work.update');
+    Route::get('/pembina/mentor-work/destroy/{id}', [PembinaController::class, 'mentorWorkDestroy'])->name('pembina.mentor-work.destroy');
+
+    // SKU
+    Route::get('/pembina/sku', [PembinaController::class, 'sku'])->name('pembina.sku');
+    Route::get('/pembina/sku/detail/{id}', [PembinaController::class, 'skuDetail'])->name('pembina.sku.detail');
+    Route::get('/pembina/sku/approve/{id}', [PembinaController::class, 'skuApprove'])->name('pembina.sku.approve');
+    Route::get('/pembina/sku/reject/{id}', [PembinaController::class, 'skuReject'])->name('pembina.sku.reject');
 });

@@ -12,8 +12,10 @@ use App\Models\Question;
 use App\Models\Quiz;
 use App\Models\QuizParticipant;
 use App\Models\Registration;
+use App\Models\SkuExam;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Nette\Utils\Random;
@@ -179,6 +181,22 @@ class AdminController extends Controller
         Storage::delete('public/mentor-work/' . $photo);
         $mentorWork->delete();
         return redirect()->route('admin.mentor-work')->with('success', 'Mentor Work deleted successfully');
+    }
+
+    public function mentorWorkApprove($slug)
+    {
+        $mentorWork = MentorWork::where('slug', $slug)->first();
+        $mentorWork->status = 'active';
+        $mentorWork->save();
+        return redirect()->back()->with('success', 'Mentor Work approved successfully');
+    }
+
+    public function mentorWorkReject($slug)
+    {
+        $mentorWork = MentorWork::where('slug', $slug)->first();
+        $mentorWork->status = 'draft';
+        $mentorWork->save();
+        return redirect()->back()->with('success', 'Mentor Work rejected successfully');
     }
 
     // Member Work
@@ -555,5 +573,95 @@ class AdminController extends Controller
         $memberWork = MemberWork::all();
         $quizParticipant = QuizParticipant::all();
         return view('admin.ranking', compact('usersNew', 'scoreUser', 'registrationEvent', 'memberWork', 'quizParticipant'));
+    }
+
+    // User Data
+    public function userData()
+    {
+        $users = User::all();
+        return view('admin.user-data', compact('users'));
+    }
+
+    public function userDataStore(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:8',
+            'password_confirmation' => 'required|same:password',
+            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5048',
+            'level' => 'required',
+            'nim' => 'required|unique:users',
+            'birth_date' => 'required',
+            'birth_place' => 'required',
+        ]);
+
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->level = $request->level;
+        $user->nim = $request->nim;
+        if ($request->hasFile('photo')) {
+            $photo = $request->file('photo');
+            $photoName = time() . '.' . $photo->getClientOriginalExtension();
+            $photo->storeAs('user', $photoName, 'public');
+            $user->photo = $photoName;
+        }
+        $user->save();
+        return redirect()->back()->with('success', 'User created successfully');
+    }
+
+    public function userDataUpdate(Request $request)
+    {
+        // validate
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,' . $request->id . ',id',
+            'nim' => 'required|unique:users,nim,' . $request->id,
+            'level' => 'required',
+            'password' => 'nullable|min:8',
+            'password_confirmation' => 'nullable|same:password',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5048',
+            'birth_date' => 'required',
+            'birth_place' => 'required',
+        ]);
+
+        $user = User::find($request->id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->nim = $request->nim;
+        $user->level = $request->level;
+
+        $user->birth_date = $request->birth_date;
+        $user->birth_place = $request->birth_place;
+        if ($request->hasFile('photo')) {
+            $photo = $request->file('photo');
+            $photoName = time() . '.' . $photo->getClientOriginalExtension();
+            $photo->storeAs('user', $photoName, 'public');
+            $user->photo = $photoName;
+        }
+        if ($request->password) {
+            $user->password = Hash::make($request->password);
+        }
+        $user->save();
+        return redirect()->back()->with('success', 'User updated successfully');
+    }
+
+    // SKU
+    public function sku()
+    {
+        $sku = SkuExam::all();
+        $user = User::where('level', 'user')->get();
+        return view('admin.sku', compact('sku', 'user'));
+    }
+
+    public function skuDetail($id)
+    {
+        $user = User::find($id);
+        $sku = SkuExam::where('user_id', $id)->get();
+
+        
+        return view('admin.sku-detail', compact('user', 'sku'));
     }
 }
